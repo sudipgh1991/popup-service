@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Opening Link...</title>
+    <title>Loading...</title>
     <script>
-        function openPopup() {
-            // Get parameters from the URL
+        function openAndClose() {
             const params = new URLSearchParams(window.location.search);
             const targetUrl = params.get('url');
-            const width = params.get('width') || 800; // Default width is 800 if not provided
-            const height = params.get('height') || 600; // Default height is 600 if not provided
+            const width = params.get('width') || 800;
+            const height = params.get('height') || 600;
 
             const statusDiv = document.getElementById('status');
 
             if (targetUrl) {
-                statusDiv.textContent = 'Opening ' + targetUrl + '...';
-                // Open the URL in a new window with specified dimensions
+                statusDiv.textContent = 'Opening pop-up...';
+                
+                // 1. Open the pop-up window
                 window.open(targetUrl, '_blank', `width=${width},height=${height},scrollbars=yes,resizable=yes`);
+                
+                // 2. Close this intermediate page itself
+                statusDiv.textContent = 'Success! This tab will now close.';
+                window.close();
+
             } else {
                 statusDiv.textContent = 'Error: No "url" parameter was provided.';
             }
         }
     </script>
 </head>
-<body onload="openPopup()">
-    <div id="status">Initializing...</div>
+<body onload="openAndClose()">
+    <div id="status" style="font-family: sans-serif; padding: 20px;">
+        Initializing...
+    </div>
 </body>
 </html>
