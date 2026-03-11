@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Opening Link...</title>
+    <script>
+        function openPopup() {
+            // Get parameters from the URL
+            const params = new URLSearchParams(window.location.search);
+            const targetUrl = params.get('url');
+            const width = params.get('width') || 800; // Default width is 800 if not provided
+            const height = params.get('height') || 600; // Default height is 600 if not provided
+
+            const statusDiv = document.getElementById('status');
+
+            if (targetUrl) {
+                statusDiv.textContent = 'Opening ' + targetUrl + '...';
+                // Open the URL in a new window with specified dimensions
+                window.open(targetUrl, '_blank', `width=${width},height=${height},scrollbars=yes,resizable=yes`);
+            } else {
+                statusDiv.textContent = 'Error: No "url" parameter was provided.';
+            }
+        }
+    </script>
+</head>
+<body onload="openPopup()">
+    <div id="status">Initializing...</div>
+</body>
+</html>
